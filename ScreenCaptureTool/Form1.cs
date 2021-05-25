@@ -35,5 +35,23 @@ namespace ScreenCaptureTool
             this.Show();
             saveButton.Enabled = true;
         }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            if (this.BackgroundImage == null)
+            {
+                MessageBox.Show("No image to save!");
+            }
+            else
+            {
+                this.BackgroundImage.Save("testbitmap.bmp");
+            }
+        }
+
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            this.BackgroundImage = null;
+            saveButton.Enabled = false;
+        }
     }
 }
