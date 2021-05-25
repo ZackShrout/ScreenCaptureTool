@@ -29,27 +29,28 @@ namespace ScreenCaptureTool
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.captureScreenButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.clearButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.captureWindowButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // captureScreenButton
             // 
-            this.button1.Location = new System.Drawing.Point(20, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Capture";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.captureScreenButton.Location = new System.Drawing.Point(20, 8);
+            this.captureScreenButton.Name = "captureScreenButton";
+            this.captureScreenButton.Size = new System.Drawing.Size(108, 23);
+            this.captureScreenButton.TabIndex = 0;
+            this.captureScreenButton.Text = "Capture Screen";
+            this.captureScreenButton.UseVisualStyleBackColor = true;
+            this.captureScreenButton.Click += new System.EventHandler(this.captureScreenButton_Click);
             // 
             // saveButton
             // 
             this.saveButton.Enabled = false;
-            this.saveButton.Location = new System.Drawing.Point(101, 8);
+            this.saveButton.Location = new System.Drawing.Point(254, 8);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 1;
@@ -59,7 +60,7 @@ namespace ScreenCaptureTool
             // 
             // clearButton
             // 
-            this.clearButton.Location = new System.Drawing.Point(182, 8);
+            this.clearButton.Location = new System.Drawing.Point(335, 8);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(75, 23);
             this.clearButton.TabIndex = 2;
@@ -70,24 +71,35 @@ namespace ScreenCaptureTool
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.captureWindowButton);
+            this.panel1.Controls.Add(this.captureScreenButton);
             this.panel1.Controls.Add(this.clearButton);
             this.panel1.Controls.Add(this.saveButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 169);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(271, 42);
+            this.panel1.Size = new System.Drawing.Size(434, 42);
             this.panel1.TabIndex = 3;
+            // 
+            // captureWindowButton
+            // 
+            this.captureWindowButton.Location = new System.Drawing.Point(134, 8);
+            this.captureWindowButton.Name = "captureWindowButton";
+            this.captureWindowButton.Size = new System.Drawing.Size(114, 23);
+            this.captureWindowButton.TabIndex = 3;
+            this.captureWindowButton.Text = "Capture Window";
+            this.captureWindowButton.UseVisualStyleBackColor = true;
+            this.captureWindowButton.Click += new System.EventHandler(this.captureWindowButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(271, 211);
+            this.ClientSize = new System.Drawing.Size(434, 211);
             this.Controls.Add(this.panel1);
-            this.MinimumSize = new System.Drawing.Size(285, 175);
+            this.MinimumSize = new System.Drawing.Size(285, 250);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Screen Capture Tool";
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -95,10 +107,11 @@ namespace ScreenCaptureTool
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button captureScreenButton;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button captureWindowButton;
     }
 }
 

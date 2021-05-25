@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +14,16 @@ namespace ScreenCaptureTool
 {
     public partial class Form1 : Form
     {
+        public int DWMWA_EXTENDED_FRAME_BOUNDS = 9;
+        
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+        [DllImport("user32.dll")]
+        private static extern bool GetWindowRect(IntPtr hWnd, ref Rectangle lpRect);
+        [DllImport("dwmapi.dll")]
+        private static extern int DwmGetWindowAttribute(IntPtr hWnd, int dwAttribute, 
+                                                        ref Rectangle pvAttribute, int cbAttribute);
+        
         public Form1()
         {
             InitializeComponent();
@@ -22,12 +33,45 @@ namespace ScreenCaptureTool
         {
             Rectangle rect = Screen.PrimaryScreen.Bounds; // primary screen bounds... in case of multiple screens
             Bitmap bitmap = new Bitmap(rect.Width, rect.Height);
-            Graphics graphic = Graphics.FromImage(bitmap);
-            graphic.CopyFromScreen(0, 0, 0, 0, rect.Size);
+            Graphics image = Graphics.FromImage(bitmap);
+            image.CopyFromScreen(0, 0, 0, 0, rect.Size);
             this.BackgroundImage = bitmap;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void GrabWindow()
+        {
+            Rectangle rect = new Rectangle();
+            IntPtr hWindow = GetForegroundWindow();
+            int windowHeight;
+            int windowWidth;
+            Bitmap bitmap;
+            Graphics image;
+            if (hWindow != null)
+            {
+                // Check to see if Windows version is XP or below
+                if (Environment.OSVersion.Version.Major < 6)
+                {
+                    GetWindowRect(hWindow, ref rect);
+                }
+                else
+                {
+                    // check to see if their is a window shadow, and if so, remove it
+                    if (DwmGetWindowAttribute(hWindow, DWMWA_EXTENDED_FRAME_BOUNDS, ref rect, Marshal.SizeOf(typeof(Rectangle))) != 0)
+                    {
+                        GetWindowRect(hWindow, ref rect);
+                    }
+                }
+                //GetWindowRect(hWindow, ref rect);
+                windowWidth = rect.Width - rect.Left;
+                windowHeight = rect.Height - rect.Top;
+                bitmap = new Bitmap(windowWidth, windowHeight);
+                image = Graphics.FromImage(bitmap);
+                image.CopyFromScreen(rect.Left, rect.Top, 0, 0, new Size(windowWidth, windowHeight));
+                this.BackgroundImage = bitmap;
+            }
+        }
+
+        private void captureScreenButton_Click(object sender, EventArgs e)
         {
             this.Hide();
             Thread.Sleep(5000);
@@ -52,6 +96,15 @@ namespace ScreenCaptureTool
         {
             this.BackgroundImage = null;
             saveButton.Enabled = false;
+        }
+
+        private void captureWindowButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Thread.Sleep(5000);
+            GrabWindow();
+            this.Show();
+            saveButton.Enabled = true;
         }
     }
 }
