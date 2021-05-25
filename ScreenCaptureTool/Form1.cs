@@ -27,14 +27,25 @@ namespace ScreenCaptureTool
         public Form1()
         {
             InitializeComponent();
+            FillComboBox();
+        }
+
+        private void FillComboBox()
+        {
+            for (int i = 0; i < Screen.AllScreens.Length; i++)
+            {
+                screenSelector.Items.Add(Screen.AllScreens[i].DeviceName);
+            }
+            screenSelector.Text = Screen.PrimaryScreen.DeviceName;
         }
 
         private void GrabScreen()
         {
-            Rectangle rect = Screen.PrimaryScreen.Bounds; // primary screen bounds... in case of multiple screens
+            // Index into selected screen
+            Rectangle rect = Screen.AllScreens[screenSelector.SelectedIndex].Bounds;
             Bitmap bitmap = new Bitmap(rect.Width, rect.Height);
             Graphics image = Graphics.FromImage(bitmap);
-            image.CopyFromScreen(0, 0, 0, 0, rect.Size);
+            image.CopyFromScreen(rect.X, rect.Y, 0, 0, rect.Size);
             this.BackgroundImage = bitmap;
         }
 
@@ -105,6 +116,11 @@ namespace ScreenCaptureTool
             GrabWindow();
             this.Show();
             saveButton.Enabled = true;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
