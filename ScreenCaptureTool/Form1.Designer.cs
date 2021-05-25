@@ -69,21 +69,23 @@ namespace ScreenCaptureTool
             // 
             // panel1
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.clearButton);
             this.panel1.Controls.Add(this.saveButton);
-            this.panel1.Location = new System.Drawing.Point(-8, 410);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 169);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(815, 42);
+            this.panel1.Size = new System.Drawing.Size(271, 42);
             this.panel1.TabIndex = 3;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(271, 211);
             this.Controls.Add(this.panel1);
+            this.MinimumSize = new System.Drawing.Size(285, 175);
             this.Name = "Form1";
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
