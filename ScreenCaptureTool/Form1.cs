@@ -17,5 +17,13 @@ namespace ScreenCaptureTool
             InitializeComponent();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Rectangle rect = Screen.PrimaryScreen.Bounds; // primary screen bounds... in case of multiple screens
+            Bitmap bitmap = new Bitmap(rect.Width, rect.Height);
+            Graphics graphic = Graphics.FromImage(bitmap);
+            graphic.CopyFromScreen(0, 0, 0, 0, rect.Size);
+            this.BackgroundImage = bitmap;
+        }
     }
 }
