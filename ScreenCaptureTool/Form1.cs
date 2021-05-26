@@ -45,8 +45,11 @@ namespace ScreenCaptureTool
             Rectangle rect = Screen.AllScreens[screenSelector.SelectedIndex].Bounds;
             Bitmap bitmap = new Bitmap(rect.Width, rect.Height);
             Graphics image = Graphics.FromImage(bitmap);
+            // top corner coordinates for additional monitors could be less or more than 0,0
+            // so it is necessary to use rect.x, rect.y for upper left corner
             image.CopyFromScreen(rect.X, rect.Y, 0, 0, rect.Size);
-            this.BackgroundImage = bitmap;
+            //this.BackgroundImage = bitmap;
+            imageCapture.Image = bitmap;
         }
 
         private void GrabWindow()
@@ -78,7 +81,8 @@ namespace ScreenCaptureTool
                 bitmap = new Bitmap(windowWidth, windowHeight);
                 image = Graphics.FromImage(bitmap);
                 image.CopyFromScreen(rect.Left, rect.Top, 0, 0, new Size(windowWidth, windowHeight));
-                this.BackgroundImage = bitmap;
+                //this.BackgroundImage = bitmap;
+                imageCapture.Image = bitmap;
             }
         }
 

@@ -33,9 +33,14 @@ namespace ScreenCaptureTool
             this.saveButton = new System.Windows.Forms.Button();
             this.clearButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.captureWindowButton = new System.Windows.Forms.Button();
             this.screenSelector = new System.Windows.Forms.ComboBox();
+            this.captureWindowButton = new System.Windows.Forms.Button();
+            this.capturePanel = new System.Windows.Forms.Panel();
+            this.imageCapture = new System.Windows.Forms.PictureBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.panel1.SuspendLayout();
+            this.capturePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imageCapture)).BeginInit();
             this.SuspendLayout();
             // 
             // captureScreenButton
@@ -71,17 +76,24 @@ namespace ScreenCaptureTool
             // 
             // panel1
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.screenSelector);
             this.panel1.Controls.Add(this.captureWindowButton);
             this.panel1.Controls.Add(this.captureScreenButton);
             this.panel1.Controls.Add(this.clearButton);
             this.panel1.Controls.Add(this.saveButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 169);
+            this.panel1.Location = new System.Drawing.Point(0, 174);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(564, 42);
             this.panel1.TabIndex = 3;
+            // 
+            // screenSelector
+            // 
+            this.screenSelector.FormattingEnabled = true;
+            this.screenSelector.Location = new System.Drawing.Point(416, 9);
+            this.screenSelector.Name = "screenSelector";
+            this.screenSelector.Size = new System.Drawing.Size(121, 23);
+            this.screenSelector.TabIndex = 4;
             // 
             // captureWindowButton
             // 
@@ -93,26 +105,52 @@ namespace ScreenCaptureTool
             this.captureWindowButton.UseVisualStyleBackColor = true;
             this.captureWindowButton.Click += new System.EventHandler(this.captureWindowButton_Click);
             // 
-            // screenSelector
+            // capturePanel
             // 
-            this.screenSelector.FormattingEnabled = true;
-            this.screenSelector.Location = new System.Drawing.Point(416, 9);
-            this.screenSelector.Name = "screenSelector";
-            this.screenSelector.Size = new System.Drawing.Size(121, 23);
-            this.screenSelector.TabIndex = 4;
+            this.capturePanel.AutoScroll = true;
+            this.capturePanel.Controls.Add(this.imageCapture);
+            this.capturePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.capturePanel.Location = new System.Drawing.Point(0, 24);
+            this.capturePanel.Name = "capturePanel";
+            this.capturePanel.Size = new System.Drawing.Size(564, 150);
+            this.capturePanel.TabIndex = 4;
+            // 
+            // imageCapture
+            // 
+            this.imageCapture.Location = new System.Drawing.Point(0, 0);
+            this.imageCapture.Name = "imageCapture";
+            this.imageCapture.Size = new System.Drawing.Size(282, 141);
+            this.imageCapture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.imageCapture.TabIndex = 0;
+            this.imageCapture.TabStop = false;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(564, 24);
+            this.menuStrip1.TabIndex = 5;
+            this.menuStrip1.Text = "menuStrip1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(564, 211);
+            this.ClientSize = new System.Drawing.Size(564, 216);
+            this.Controls.Add(this.capturePanel);
             this.Controls.Add(this.panel1);
-            this.MinimumSize = new System.Drawing.Size(580, 250);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(580, 255);
             this.Name = "Form1";
             this.Text = "Screen Capture Tool";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
+            this.capturePanel.ResumeLayout(false);
+            this.capturePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imageCapture)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -124,6 +162,10 @@ namespace ScreenCaptureTool
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button captureWindowButton;
         private System.Windows.Forms.ComboBox screenSelector;
+        private System.Windows.Forms.Panel capturePanel;
+        private System.Windows.Forms.PictureBox captureImage;
+        private System.Windows.Forms.PictureBox imageCapture;
+        private System.Windows.Forms.MenuStrip menuStrip1;
     }
 }
 
