@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -86,31 +88,67 @@ namespace ScreenCaptureTool
             }
         }
 
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String filename;
+            ImageFormat imageFormat;
+            saveFileDialog.FileName = "";
+            if (this.imageCapture.Image == null)
+            {
+                MessageBox.Show("No image to save!");
+            }
+            else if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                filename = saveFileDialog.FileName;
+                imageFormat = GetImageFormat(filename);
+                this.imageCapture.Image.Save(filename, imageFormat);
+            }
+        }
+
+        private ImageFormat GetImageFormat(string filename)
+        {
+            String extention = Path.GetExtension(filename).ToLower();
+            ImageFormat imageFormat = ImageFormat.Bmp;
+            if (extention != "")
+            {
+                switch (extention)
+                {
+                    case ".gif":
+                        imageFormat = ImageFormat.Gif;
+                        break;
+                    case ".jpeg":
+                        imageFormat = ImageFormat.Jpeg;
+                        break;
+                    case ".bmp":
+                        imageFormat = ImageFormat.Bmp;
+                        break;
+                    case ".png":
+                        imageFormat = ImageFormat.Png;
+                        break;
+                    case ".tif":
+                        imageFormat = ImageFormat.Tiff;
+                        break;
+                }
+            }
+            return imageFormat;
+        }
+
         private void captureScreenButton_Click(object sender, EventArgs e)
         {
             this.Hide();
             Thread.Sleep(5000);
             GrabScreen();
             this.Show();
-            saveButton.Enabled = true;
-        }
-
-        private void saveButton_Click(object sender, EventArgs e)
-        {
-            if (this.BackgroundImage == null)
-            {
-                MessageBox.Show("No image to save!");
-            }
-            else
-            {
-                this.BackgroundImage.Save("testbitmap.bmp");
-            }
         }
 
         private void clearButton_Click(object sender, EventArgs e)
         {
-            this.BackgroundImage = null;
-            saveButton.Enabled = false;
+            this.imageCapture.Image = null;
         }
 
         private void captureWindowButton_Click(object sender, EventArgs e)
@@ -119,7 +157,6 @@ namespace ScreenCaptureTool
             Thread.Sleep(5000);
             GrabWindow();
             this.Show();
-            saveButton.Enabled = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
