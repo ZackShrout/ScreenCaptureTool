@@ -17,6 +17,7 @@ namespace ScreenCaptureTool
     public partial class Form1 : Form
     {
         public int DWMWA_EXTENDED_FRAME_BOUNDS = 9;
+        GrabRegionForm grabForm;
         
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
@@ -30,6 +31,7 @@ namespace ScreenCaptureTool
         {
             InitializeComponent();
             FillComboBox();
+            grabForm = new GrabRegionForm(this);
         }
 
         private void FillComboBox()
@@ -51,6 +53,16 @@ namespace ScreenCaptureTool
             // so it is necessary to use rect.x, rect.y for upper left corner
             image.CopyFromScreen(rect.X, rect.Y, 0, 0, rect.Size);
             //this.BackgroundImage = bitmap;
+            imageCapture.Image = bitmap;
+        }
+
+        public void CaptureRect(Rectangle rectangle)
+        {
+            int rectangleWidth = rectangle.Width - rectangle.Left;
+            int rectangleHeight = rectangle.Height - rectangle.Top;
+            Bitmap bitmap = new Bitmap(rectangleWidth, rectangleHeight);
+            Graphics image = Graphics.FromImage(bitmap);
+            image.CopyFromScreen(rectangle.Left, rectangle.Top, 0, 0, new Size(rectangleWidth, rectangleHeight));
             imageCapture.Image = bitmap;
         }
 
