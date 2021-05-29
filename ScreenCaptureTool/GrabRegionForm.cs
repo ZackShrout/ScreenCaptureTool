@@ -14,7 +14,7 @@ namespace ScreenCaptureTool
         public Rectangle rectangle;
         public Form1 mainForm;
 
-        public const int WM_NCLBUTTONDOWN = 0xA3;
+        public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HTCAPTION = 0x2;
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();

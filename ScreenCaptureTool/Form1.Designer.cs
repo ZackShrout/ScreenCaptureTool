@@ -31,17 +31,19 @@ namespace ScreenCaptureTool
         /// </summary>
         private void InitializeComponent()
         {
-            this.captureScreenButton = new System.Windows.Forms.Button();
             this.clearButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.screenSelector = new System.Windows.Forms.ComboBox();
-            this.captureWindowButton = new System.Windows.Forms.Button();
             this.capturePanel = new System.Windows.Forms.Panel();
             this.imageCapture = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.captureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.captureScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.captureWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.captureRegionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.panel1.SuspendLayout();
             this.capturePanel.SuspendLayout();
@@ -49,19 +51,9 @@ namespace ScreenCaptureTool
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // captureScreenButton
-            // 
-            this.captureScreenButton.Location = new System.Drawing.Point(20, 8);
-            this.captureScreenButton.Name = "captureScreenButton";
-            this.captureScreenButton.Size = new System.Drawing.Size(108, 23);
-            this.captureScreenButton.TabIndex = 0;
-            this.captureScreenButton.Text = "Capture Screen";
-            this.captureScreenButton.UseVisualStyleBackColor = true;
-            this.captureScreenButton.Click += new System.EventHandler(this.captureScreenButton_Click);
-            // 
             // clearButton
             // 
-            this.clearButton.Location = new System.Drawing.Point(254, 9);
+            this.clearButton.Location = new System.Drawing.Point(12, 9);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(75, 23);
             this.clearButton.TabIndex = 2;
@@ -72,8 +64,6 @@ namespace ScreenCaptureTool
             // panel1
             // 
             this.panel1.Controls.Add(this.screenSelector);
-            this.panel1.Controls.Add(this.captureWindowButton);
-            this.panel1.Controls.Add(this.captureScreenButton);
             this.panel1.Controls.Add(this.clearButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 174);
@@ -88,16 +78,6 @@ namespace ScreenCaptureTool
             this.screenSelector.Name = "screenSelector";
             this.screenSelector.Size = new System.Drawing.Size(121, 23);
             this.screenSelector.TabIndex = 4;
-            // 
-            // captureWindowButton
-            // 
-            this.captureWindowButton.Location = new System.Drawing.Point(134, 8);
-            this.captureWindowButton.Name = "captureWindowButton";
-            this.captureWindowButton.Size = new System.Drawing.Size(114, 23);
-            this.captureWindowButton.TabIndex = 3;
-            this.captureWindowButton.Text = "Capture Window";
-            this.captureWindowButton.UseVisualStyleBackColor = true;
-            this.captureWindowButton.Click += new System.EventHandler(this.captureWindowButton_Click);
             // 
             // capturePanel
             // 
@@ -121,7 +101,8 @@ namespace ScreenCaptureTool
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.captureToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(564, 24);
@@ -151,6 +132,37 @@ namespace ScreenCaptureTool
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
+            // captureToolStripMenuItem
+            // 
+            this.captureToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.captureScreenToolStripMenuItem,
+            this.captureWindowToolStripMenuItem,
+            this.captureRegionToolStripMenuItem});
+            this.captureToolStripMenuItem.Name = "captureToolStripMenuItem";
+            this.captureToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.captureToolStripMenuItem.Text = "Capture";
+            // 
+            // captureScreenToolStripMenuItem
+            // 
+            this.captureScreenToolStripMenuItem.Name = "captureScreenToolStripMenuItem";
+            this.captureScreenToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.captureScreenToolStripMenuItem.Text = "Capture Screen";
+            this.captureScreenToolStripMenuItem.Click += new System.EventHandler(this.captureScreenToolStripMenuItem_Click);
+            // 
+            // captureWindowToolStripMenuItem
+            // 
+            this.captureWindowToolStripMenuItem.Name = "captureWindowToolStripMenuItem";
+            this.captureWindowToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.captureWindowToolStripMenuItem.Text = "Capture Window";
+            this.captureWindowToolStripMenuItem.Click += new System.EventHandler(this.captureWindowToolStripMenuItem_Click);
+            // 
+            // captureRegionToolStripMenuItem
+            // 
+            this.captureRegionToolStripMenuItem.Name = "captureRegionToolStripMenuItem";
+            this.captureRegionToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.captureRegionToolStripMenuItem.Text = "Capture Region";
+            this.captureRegionToolStripMenuItem.Click += new System.EventHandler(this.captureRegionToolStripMenuItem_Click);
+            // 
             // saveFileDialog
             // 
             this.saveFileDialog.DefaultExt = "gif";
@@ -168,7 +180,6 @@ namespace ScreenCaptureTool
             this.MinimumSize = new System.Drawing.Size(580, 255);
             this.Name = "Form1";
             this.Text = "Screen Capture Tool";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.capturePanel.ResumeLayout(false);
             this.capturePanel.PerformLayout();
@@ -180,12 +191,11 @@ namespace ScreenCaptureTool
 
         }
 
-        #endregion
+        
 
-        private System.Windows.Forms.Button captureScreenButton;
+        #endregion
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button captureWindowButton;
         private System.Windows.Forms.ComboBox screenSelector;
         private System.Windows.Forms.Panel capturePanel;
         private System.Windows.Forms.PictureBox imageCapture;
@@ -194,6 +204,10 @@ namespace ScreenCaptureTool
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem captureToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem captureScreenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem captureWindowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem captureRegionToolStripMenuItem;
     }
 }
 

@@ -65,6 +65,13 @@ namespace ScreenCaptureTool
             image.CopyFromScreen(rectangle.Left, rectangle.Top, 0, 0, new Size(rectangleWidth, rectangleHeight));
             imageCapture.Image = bitmap;
         }
+        
+        private void GrabRegion()
+        {
+            this.Hide();
+            grabForm.ShowDialog(this);
+            MakeTopMost();
+        }
 
         private void GrabWindow()
         {
@@ -150,20 +157,27 @@ namespace ScreenCaptureTool
             return imageFormat;
         }
 
-        private void captureScreenButton_Click(object sender, EventArgs e)
+        // ensure form is shown and has focus (otherwise it may not 'yield' to
+        // activity (keystrokes, mouse clicks) in other apps...
+        private void MakeTopMost()
         {
-            this.Hide();
-            Thread.Sleep(5000);
-            GrabScreen();
+            this.TopMost = true;
             this.Show();
+            //SendKeys.Send("{LEFT}");
+            this.TopMost = false;
         }
 
-        private void clearButton_Click(object sender, EventArgs e)
+    private void clearButton_Click(object sender, EventArgs e)
         {
             this.imageCapture.Image = null;
         }
 
-        private void captureWindowButton_Click(object sender, EventArgs e)
+        private void captureRegionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GrabRegion();
+        }
+
+        private void captureWindowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
             Thread.Sleep(5000);
@@ -171,9 +185,13 @@ namespace ScreenCaptureTool
             this.Show();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void captureScreenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            Thread.Sleep(5000);
+            GrabScreen();
+            this.Show();
         }
+
     }
 }
